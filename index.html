@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>HOMEM-ARANHA DUELO TEIOSO - TCG HERÓIS</title>
 <style>
   :root {
@@ -16,15 +16,14 @@
     --text: #f8fafc;
   }
 
-
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     user-select: none;
+    -webkit-user-select: none;
   }
-
 
   body {
     background-color: var(--bg-dark);
@@ -32,228 +31,204 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
   }
 
-
   #status-bar {
     background: #090d16;
-    padding: 12px 24px;
+    padding: 8px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #e11d48;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    font-size: 0.85rem;
+    flex-shrink: 0;
   }
-
 
   .lorde-info {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
     font-weight: bold;
   }
 
-
   .badge {
-    padding: 4px 10px;
+    padding: 2px 6px;
     border-radius: 12px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     background: rgba(255,255,255,0.08);
   }
 
-
   .hp-text { color: var(--hp-color); }
   .energia-text { color: var(--energia-color); }
-
 
   #tabuleiro {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 15px;
+    padding: 8px;
     background: radial-gradient(circle, #1e1b4b 0%, #090d16 100%);
     position: relative;
-    gap: 10px;
+    gap: 5px;
+    overflow-y: auto;
   }
 
-
   .zona-campo {
-    min-height: 190px;
+    min-height: 140px;
+    max-height: 170px;
     border: 2px dashed #334155;
-    border-radius: 12px;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
     background: rgba(15, 23, 42, 0.6);
-    transition: border-color 0.3s;
-    padding: 10px;
+    padding: 6px;
+    overflow-x: auto;
   }
-
 
   #historico-log {
     text-align: center;
-    font-size: 1.05rem;
+    font-size: 0.9rem;
     color: var(--gold);
-    min-height: 40px;
+    min-height: 30px;
     font-style: italic;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(0,0,0,0.4);
-    border-radius: 8px;
-    padding: 8px;
-    margin: 2px 0;
+    border-radius: 6px;
+    padding: 4px 8px;
+    flex-shrink: 0;
   }
-
 
   #painel-inferior {
     background: #0f172a;
     border-top: 2px solid #334155;
-    padding: 12px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
+    flex-shrink: 0;
   }
-
 
   #mao {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
-    min-height: 180px;
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 4px;
   }
 
-
   .carta {
-    width: 125px;
-    height: 175px;
+    width: 100px;
+    height: 145px;
     background: var(--card-bg);
     border: 2px solid var(--card-border);
-    border-radius: 10px;
-    padding: 6px;
+    border-radius: 8px;
+    padding: 4px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
-    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+    flex-shrink: 0;
     position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
   }
-
-
-  .carta:hover {
-    transform: translateY(-8px) scale(1.03);
-    border-color: var(--gold);
-    box-shadow: 0 10px 20px rgba(251, 191, 36, 0.3);
-  }
-
 
   .carta.feitico {
     background: #1e1b4b;
     border-color: #6366f1;
   }
 
-
   .carta.exasto {
     opacity: 0.6;
     filter: grayscale(0.5);
   }
 
-
   .carta-custo {
     position: absolute;
-    top: -8px;
-    right: -8px;
+    top: -6px;
+    right: -6px;
     background: #eab308;
     color: #0f172a;
     border-radius: 50%;
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     border: 2px solid #ffffff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     z-index: 2;
   }
 
-
   .carta-img {
     width: 100%;
-    height: 65px;
+    height: 50px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-
   .carta-nome {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: bold;
     text-align: center;
     margin-top: 2px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 2px;
+    padding-bottom: 1px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-
   .carta-desc {
-    font-size: 0.62rem;
+    font-size: 0.55rem;
     text-align: center;
     color: #94a3b8;
-    margin: 2px 0;
+    margin: 1px 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
-
 
   .carta-stats {
     display: flex;
     justify-content: space-between;
     font-weight: bold;
-    font-size: 0.68rem;
+    font-size: 0.6rem;
     background: rgba(0,0,0,0.5);
-    padding: 3px 4px;
-    border-radius: 6px;
+    padding: 2px 3px;
+    border-radius: 4px;
   }
-
 
   #btn-passar {
     background: linear-gradient(135deg, #e11d48, #be123c);
     color: white;
     border: 1px solid #f43f5e;
-    padding: 10px 28px;
-    font-size: 1rem;
+    padding: 8px 20px;
+    font-size: 0.9rem;
     font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
   }
-
-
-  #btn-passar:hover {
-    background: linear-gradient(135deg, #f43f5e, #e11d48);
-    transform: scale(1.05);
-  }
-
 
   #btn-passar:disabled {
     background: #334155;
     border-color: #475569;
     color: #94a3b8;
     cursor: not-allowed;
-    transform: none;
   }
-
 
   .modal-overlay {
     position: fixed;
@@ -271,86 +246,69 @@
     transition: opacity 0.5s ease;
   }
 
-
   .modal-overlay.ativo {
     opacity: 1;
     pointer-events: auto;
   }
 
-
   .modal-card {
     background: #1e293b;
     border: 3px solid var(--gold);
     border-radius: 16px;
-    padding: 30px;
+    padding: 25px;
     text-align: center;
-    max-width: 420px;
+    max-width: 380px;
     width: 90%;
     box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
     transform: scale(0.8);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
-
   .modal-overlay.ativo .modal-card {
     transform: scale(1);
   }
 
-
   .modal-card h1 {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     color: var(--gold);
     margin-bottom: 10px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 10px rgba(251, 191, 36, 0.5);
   }
-
 
   .modal-card p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #94a3b8;
-    margin-bottom: 25px;
-    line-height: 1.5;
+    margin-bottom: 20px;
+    line-height: 1.4;
   }
-
 
   .modal-btn {
     background: linear-gradient(135deg, #22c55e, #16a34a);
     color: white;
     border: none;
-    padding: 12px 30px;
-    font-size: 1.1rem;
+    padding: 10px 24px;
+    font-size: 1rem;
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
     box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
-  }
-
-
-  .modal-btn:hover {
-    transform: scale(1.05);
-    background: linear-gradient(135deg, #4ade80, #22c55e);
   }
 </style>
 </head>
 <body>
 
-
 <div id="status-bar">
   <div class="lorde-info">
-    <span>🐙 DOUTOR OCTOPUS (IA HARD)</span>
+    <span>🐙 DOC OCK</span>
     <span class="badge hp-text">HP: <span id="ia-hp">400</span></span>
   </div>
   <div id="turno-txt" style="font-weight: bold; color: var(--gold);">Turno 1</div>
   <div class="lorde-info">
-    <span>🕷️ HOMEM-ARANHA (Você)</span>
+    <span>🕷️ VOCÊ</span>
     <span class="badge hp-text">HP: <span id="jogador-hp">350</span></span>
-    <span class="badge energia-text">Energia: <span id="jogador-energia">5/5</span></span>
+    <span class="badge energia-text">⚡ <span id="jogador-energia">5/5</span></span>
   </div>
 </div>
-
 
 <div id="tabuleiro">
   <div class="zona-campo" id="campo-ia"></div>
@@ -358,22 +316,19 @@
   <div class="zona-campo" id="campo-jogador"></div>
 </div>
 
-
 <div id="painel-inferior">
   <div id="mao"></div>
   <button id="btn-passar" onclick="passarTurno()">Encerrar Turno</button>
 </div>
 
-
 <div class="modal-overlay" id="modal-fim-jogo">
   <div class="modal-card">
-    <div style="font-size: 4rem; margin-bottom: 10px;">🏆</div>
+    <div style="font-size: 3.5rem; margin-bottom: 10px;">🏆</div>
     <h1 id="modal-titulo">VITÓRIA GLORIOSA!</h1>
     <p id="modal-mensagem">Você salvou a cidade e derrotou o Doutor Octopus!</p>
     <button class="modal-btn" onclick="location.reload()">Jogar Novamente</button>
   </div>
 </div>
-
 
 <script>
   const MAX_CAMPO = 3;
@@ -382,7 +337,6 @@
   const ENERGIA_MAXIMA = 30;
   const ENERGIA_INICIAL = 5;
   const INCREMENTO_ENERGIA = 5;
-
 
   const BARALHO_JOGADOR = [
     { nome: "HOMEM-ARANHA", tipo: "Unidade", custo: 1, atk: 15, hp: 35, hpMax: 35, escudo: 10, img: "https://placehold.co/120x80/e11d48/ffffff?text=Spider-Man" },
@@ -404,7 +358,6 @@
     { nome: "SOBRECARGA TEIOSA", tipo: "Feitiço", custo: 4, desc: "55 Dano Direto", efeito: "dano", valor: 55, img: "https://placehold.co/120x80/c084fc/ffffff?text=Sobrecarga" }
   ];
 
-
   const BARALHO_IA = [
     { nome: "CAPANGA OSCORP", tipo: "Unidade", custo: 1, atk: 20, hp: 35, hpMax: 35, escudo: 5, img: "https://placehold.co/120x80/334155/ffffff?text=Capanga" },
     { nome: "ELECTRO", tipo: "Unidade", custo: 2, atk: 35, hp: 40, hpMax: 40, escudo: 10, img: "https://placehold.co/120x80/eab308/0f172a?text=Electro" },
@@ -424,14 +377,11 @@
     { nome: "BOMBA ABÓBORA", tipo: "Feitiço", custo: 3, desc: "50 Dano Direto", efeito: "dano", valor: 50, img: "https://placehold.co/120x80/ea580c/ffffff?text=Bomba" }
   ];
 
-
   let turno = 1;
   let meuTurno = true;
 
-
   const jogador = { hp: JOGADOR_MAX_HP, energiaMax: ENERGIA_INICIAL, energia: ENERGIA_INICIAL, mao: [], campo: [] };
   const ia = { hp: IA_MAX_HP, energiaMax: ENERGIA_INICIAL, energia: ENERGIA_INICIAL, mao: [], campo: [] };
-
 
   function aplicarDanoUnidade(unidade, dano) {
     let danoRestante = dano;
@@ -449,13 +399,11 @@
     }
   }
 
-
   function iniciarJogo() {
     for(let i = 0; i < 4; i++) comprarCarta(jogador, BARALHO_JOGADOR);
     for(let i = 0; i < 5; i++) comprarCarta(ia, BARALHO_IA);
     atualizarInterface();
   }
-
 
   function comprarCarta(p, baralho) {
     if(p.mao.length < 5) {
@@ -464,125 +412,108 @@
     }
   }
 
-
   function jogarCarta(index) {
     if (!meuTurno) return;
     const carta = jogador.mao[index];
 
-
     if (carta.custo > jogador.energia) {
-      setLog("❌ Energia insuficiente para jogar esta carta!");
+      setLog("❌ Energia insuficiente!");
       return;
     }
 
-
     if (carta.tipo === "Feitiço") {
       if (carta.efeito === "escudo" && jogador.campo.length === 0) {
-        setLog("⚠️ Você precisa de ao menos um herói no campo para dar Escudo!");
+        setLog("⚠️ Precisa de herói no campo para Escudo!");
         return;
       }
 
-
       jogador.energia -= carta.custo;
       jogador.mao.splice(index, 1);
-
 
       if (carta.efeito === "cura") {
         jogador.hp = Math.min(JOGADOR_MAX_HP, jogador.hp + carta.valor);
         setLog(`💚 Você usou ${carta.nome} (+${carta.valor} HP)!`);
       } else if (carta.efeito === "escudo") {
         jogador.campo[0].escudo += carta.valor;
-        setLog(`🛡️ +${carta.valor} Escudo concedido a ${jogador.campo[0].nome}!`);
+        setLog(`🛡️ +${carta.valor} Escudo em ${jogador.campo[0].nome}!`);
       } else if (carta.efeito === "dano") {
         if (ia.campo.length > 0) {
           aplicarDanoUnidade(ia.campo[0], carta.valor);
-          setLog(`💥 ${carta.nome} causou ${carta.valor} de dano em ${ia.campo[0].nome}!`);
+          setLog(`💥 ${carta.nome} causou ${carta.valor} em ${ia.campo[0].nome}!`);
           if (ia.campo[0].hp <= 0) {
-            setLog(`☠️ ${ia.campo[0].nome} foi destruído!`);
+            setLog(`☠️ ${ia.campo[0].nome} destruído!`);
             ia.campo.splice(0, 1);
           }
         } else {
           ia.hp -= carta.valor;
-          setLog(`💥 ${carta.nome} atingiu o Doutor Octopus diretamente (${carta.valor} dano)!`);
+          setLog(`💥 ${carta.nome} atingiu Doc Ock (${carta.valor} dano)!`);
         }
       }
     } else if (carta.tipo === "Unidade") {
       if (jogador.campo.length >= MAX_CAMPO) {
-        setLog(`⚠️ Limite de ${MAX_CAMPO} unidades no campo atingido!`);
+        setLog(`⚠️ Limite de ${MAX_CAMPO} unidades atingido!`);
         return;
       }
       jogador.energia -= carta.custo;
       carta.jaAtacou = false;
       jogador.campo.push(carta);
       jogador.mao.splice(index, 1);
-      setLog(`⚔️ Você invocou ${carta.nome} na arena!`);
+      setLog(`⚔️ Você invocou ${carta.nome}!`);
     }
-
 
     checarVitoria();
     atualizarInterface();
   }
 
-
   function atacarComUnidade(idxAtacante) {
     if (!meuTurno) return;
     const atacante = jogador.campo[idxAtacante];
 
-
     if (atacante.jaAtacou) {
-      setLog(`⚠️ ${atacante.nome} já combateu neste turno!`);
+      setLog(`⚠️ ${atacante.nome} já atacou neste turno!`);
       return;
     }
-
 
     if (ia.campo.length > 0) {
       let alvoIdx = 0;
       if (ia.campo.length > 1) {
         const nomesAlvos = ia.campo.map((u, i) => `${i + 1}: ${u.nome}`).join("\n");
-        const escolha = prompt(`Escolha o alvo do ataque (1 a ${ia.campo.length}):\n${nomesAlvos}`);
+        const escolha = prompt(`Escolha o alvo (1 a ${ia.campo.length}):\n${nomesAlvos}`);
         alvoIdx = parseInt(escolha) - 1;
         if (isNaN(alvoIdx) || alvoIdx < 0 || alvoIdx >= ia.campo.length) alvoIdx = 0;
       }
-
 
       const alvo = ia.campo[alvoIdx];
       aplicarDanoUnidade(alvo, atacante.atk);
       setLog(`💥 ${atacante.nome} atacou ${alvo.nome} (${atacante.atk} dano)!`);
 
-
       if (alvo.hp <= 0) {
-        setLog(`☠️ ${alvo.nome} inimigo foi derrotado!`);
+        setLog(`☠️ ${alvo.nome} inimigo derrotado!`);
         ia.campo.splice(alvoIdx, 1);
       }
     } else {
       ia.hp -= atacante.atk;
-      setLog(`💥 ${atacante.nome} atacou o DOUTOR OCTOPUS diretamente (${atacante.atk} dano)!`);
+      setLog(`💥 ${atacante.nome} atacou DOC OCK diretamente!`);
     }
-
 
     atacante.jaAtacou = true;
     checarVitoria();
     atualizarInterface();
   }
 
-
   function passarTurno() {
     if (!meuTurno) return;
     meuTurno = false;
     document.getElementById("btn-passar").disabled = true;
-    setLog("Turno do DOUTOR OCTOPUS 🐙...");
-
-
+    setLog("Turno do DOC Ock 🐙...");
     setTimeout(turnoIA, 1000);
   }
-
 
   function turnoIA() {
     turno++;
     ia.energiaMax = Math.min(ENERGIA_MAXIMA, ENERGIA_INICIAL + (turno - 1) * INCREMENTO_ENERGIA);
     ia.energia = ia.energiaMax;
     comprarCarta(ia, BARALHO_IA);
-
 
     const idxFeitico = ia.mao.findIndex(c => c.tipo === "Feitiço" && c.custo <= ia.energia);
     if (idxFeitico !== -1) {
@@ -591,10 +522,9 @@
         ia.energia -= feitico.custo;
         ia.mao.splice(idxFeitico, 1);
 
-
         if (feitico.efeito === "cura") {
           ia.hp = Math.min(IA_MAX_HP, ia.hp + feitico.valor);
-          setLog(`🧪 Doutor Octopus usou ${feitico.nome} (+${feitico.valor} HP)!`);
+          setLog(`🧪 Doc Ock usou ${feitico.nome} (+${feitico.valor} HP)!`);
         } else if (feitico.efeito === "dano") {
           if (jogador.campo.length > 0) {
             let alvoIndex = 0;
@@ -603,16 +533,15 @@
               if (u.hp < menorHP) { menorHP = u.hp; alvoIndex = i; }
             });
             aplicarDanoUnidade(jogador.campo[alvoIndex], feitico.valor);
-            setLog(`⚡ Doutor Octopus usou ${feitico.nome} em ${jogador.campo[alvoIndex].nome} (${feitico.valor} dano)!`);
+            setLog(`⚡ Doc Ock usou ${feitico.nome} em ${jogador.campo[alvoIndex].nome}!`);
             if (jogador.campo[alvoIndex].hp <= 0) jogador.campo.splice(alvoIndex, 1);
           } else {
             jogador.hp -= feitico.valor;
-            setLog(`⚡ Doutor Octopus usou ${feitico.nome} diretamente em você (${feitico.valor} dano)!`);
+            setLog(`⚡ Doc Ock te atacou com feitiço (${feitico.valor} dano)!`);
           }
         }
       }
     }
-
 
     while (ia.campo.length < MAX_CAMPO) {
       const escolhasInvocacao = ia.mao
@@ -620,17 +549,14 @@
         .filter(item => item.carta.tipo === "Unidade" && item.carta.custo <= ia.energia)
         .sort((a, b) => b.carta.custo - a.carta.custo);
 
-
       if (escolhasInvocacao.length === 0) break;
-
 
       const escolhida = escolhasInvocacao[0];
       ia.energia -= escolhida.carta.custo;
       ia.campo.push(escolhida.carta);
       ia.mao.splice(escolhida.idx, 1);
-      setLog(`🐙 Doutor Octopus invocou ${escolhida.carta.nome}!`);
+      setLog(`🐙 Doc Ock invocou ${escolhida.carta.nome}!`);
     }
-
 
     ia.campo.forEach(unidadeIA => {
       if (jogador.campo.length > 0) {
@@ -643,41 +569,30 @@
           }
         });
 
-
         const alvo = jogador.campo[alvoIndex];
-       
-        if (unidadeIA.atk <= alvo.escudo && jogador.hp > 0) {
-          jogador.hp -= unidadeIA.atk;
-          setLog(`💥 ${unidadeIA.nome} ignorou seu escudo e te atacou diretamente (${unidadeIA.atk} dano)!`);
-        } else {
-          aplicarDanoUnidade(alvo, unidadeIA.atk);
-          setLog(`💥 ${unidadeIA.nome} atacou ${alvo.nome} (${unidadeIA.atk} dano)!`);
-          if (alvo.hp <= 0) {
-            setLog(`☠️ Seu ${alvo.nome} foi destruído!`);
-            jogador.campo.splice(alvoIndex, 1);
-          }
+        aplicarDanoUnidade(alvo, unidadeIA.atk);
+        setLog(`💥 ${unidadeIA.nome} atacou ${alvo.nome}!`);
+        if (alvo.hp <= 0) {
+          setLog(`☠️ Seu ${alvo.nome} foi destruído!`);
+          jogador.campo.splice(alvoIndex, 1);
         }
       } else {
         jogador.hp -= unidadeIA.atk;
-        setLog(`💥 ${unidadeIA.nome} te atacou diretamente (${unidadeIA.atk} dano)!`);
+        setLog(`💥 ${unidadeIA.nome} te atacou diretamente!`);
       }
     });
 
-
     checarVitoria();
-
 
     jogador.energiaMax = Math.min(ENERGIA_MAXIMA, ENERGIA_INICIAL + (turno - 1) * INCREMENTO_ENERGIA);
     jogador.energia = jogador.energiaMax;
     jogador.campo.forEach(u => u.jaAtacou = false);
     comprarCarta(jogador, BARALHO_JOGADOR);
 
-
     meuTurno = true;
     document.getElementById("btn-passar").disabled = false;
     atualizarInterface();
   }
-
 
   function checarVitoria() {
     if (ia.hp <= 0) {
@@ -687,32 +602,26 @@
     }
   }
 
-
   function exibeTelaFimJogo(vitoria) {
     const modal = document.getElementById("modal-fim-jogo");
     const titulo = document.getElementById("modal-titulo");
     const mensagem = document.getElementById("modal-mensagem");
 
-
     if (vitoria) {
       titulo.innerText = "VITÓRIA GLORIOSA!";
       titulo.style.color = "#fbbf24";
-      mensagem.innerText = "Você superou a inteligência do Doutor Octopus e salvou Nova York!";
+      mensagem.innerText = "Você derrotou o Doutor Octopus e salvou a cidade!";
     } else {
       titulo.innerText = "DERROTA!";
       titulo.style.color = "#ef4444";
       mensagem.innerText = "O Doutor Octopus dominou a cidade...";
     }
-
-
     modal.classList.add("ativo");
   }
-
 
   function setLog(texto) {
     document.getElementById("historico-log").innerText = texto;
   }
-
 
   function atualizarInterface() {
     document.getElementById("jogador-hp").innerText = Math.max(0, jogador.hp);
@@ -720,13 +629,11 @@
     document.getElementById("ia-hp").innerText = Math.max(0, ia.hp);
     document.getElementById("turno-txt").innerText = `Turno ${turno}`;
 
-
     const divMao = document.getElementById("mao");
     divMao.innerHTML = "";
     jogador.mao.forEach((carta, i) => {
       divMao.appendChild(criarElementoCarta(carta, () => jogarCarta(i)));
     });
-
 
     const campoJ = document.getElementById("campo-jogador");
     campoJ.innerHTML = "";
@@ -736,7 +643,6 @@
       campoJ.appendChild(el);
     });
 
-
     const campoIA = document.getElementById("campo-ia");
     campoIA.innerHTML = "";
     ia.campo.forEach(carta => {
@@ -744,12 +650,10 @@
     });
   }
 
-
   function criarElementoCarta(carta, onClick) {
     const el = document.createElement("div");
     el.className = `carta ${carta.tipo === 'Feitiço' ? 'feitico' : ''}`;
     if (onClick) el.onclick = onClick;
-
 
     el.innerHTML = `
       <div class="carta-custo">${carta.custo}</div>
@@ -758,18 +662,16 @@
       <div class="carta-desc">${carta.desc || ''}</div>
       ${carta.tipo === 'Unidade' ? `
         <div class="carta-stats">
-          <span style="color:#ef4444">⚔️ ${carta.atk}</span>
-          <span style="color:#38bdf8">🛡️ ${carta.escudo || 0}</span>
-          <span style="color:#22c55e">❤️ ${carta.hp}</span>
+          <span style="color:#ef4444">⚔️${carta.atk}</span>
+          <span style="color:#38bdf8">🛡️${carta.escudo || 0}</span>
+          <span style="color:#22c55e">❤️${carta.hp}</span>
         </div>
       ` : ''}
     `;
     return el;
   }
 
-
   iniciarJogo();
 </script>
 </body>
 </html>
-
